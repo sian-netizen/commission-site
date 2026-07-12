@@ -32,6 +32,14 @@
             100% { transform: rotate(360deg); }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animation-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -42,12 +50,12 @@
     <!-- 導覽列 -->
     <header class="bg-white shadow-sm sticky top-0 z-10">
         <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-blue-600">我的繪畫空間</h1>
+            <h1 class="text-xl font-bold text-blue-600 cursor-pointer" onclick="switchPage('about')">我的繪畫空間</h1>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="#about" class="hover:text-blue-500 transition-colors">關於我</a></li>
-                    <li><a href="#portfolio" class="hover:text-blue-500 transition-colors">作品集</a></li>
-                    <li><a href="#commission" class="font-medium text-blue-600 hover:text-blue-700 transition-colors">我要委託</a></li>
+                    <li><a href="javascript:void(0)" onclick="switchPage('about')" id="nav-about" class="nav-link text-blue-600 font-medium transition-colors">關於我</a></li>
+                    <li><a href="javascript:void(0)" onclick="switchPage('portfolio')" id="nav-portfolio" class="nav-link text-gray-600 hover:text-blue-500 transition-colors">作品集</a></li>
+                    <li><a href="javascript:void(0)" onclick="switchPage('commission')" id="nav-commission" class="nav-link text-gray-600 hover:text-blue-500 transition-colors">我要委託</a></li>
                 </ul>
             </nav>
         </div>
@@ -55,16 +63,56 @@
 
     <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8">
         
-        <!-- 簡介區塊 (預留空間) -->
-        <section id="about" class="mb-12 text-center">
+        <!-- 簡介區塊 (預設顯示) -->
+        <section id="about" class="page-section mb-12 text-center animation-fade-in">
             <h2 class="text-3xl font-bold mb-4">歡迎來到我的繪畫委託站</h2>
-            <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                你好！我是一名插畫家，專注於角色設計與場景插畫。如果您喜歡我的風格，歡迎填寫下方的表單進行委託。
+            <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
+                你好！我是一名插畫家，專注於角色設計與場景插畫。如果您喜歡我的風格，歡迎透過上方的「我要委託」填寫表單。
             </p>
+            <!-- 可以放一張你的個人橫幅或代表圖 -->
+            <img src="https://placehold.co/800x400/e2e8f0/64748b?text=Welcome+Banner" alt="Welcome Banner" class="w-full rounded-2xl shadow-md object-cover h-64">
         </section>
 
-        <!-- 委託表單區塊 -->
-        <section id="commission" class="bg-white rounded-2xl shadow-lg p-6 md:p-10 border border-gray-100">
+        <!-- 作品集區塊 (預設隱藏) -->
+        <section id="portfolio" class="page-section hidden animation-fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">作品集</h2>
+                <p class="text-gray-500">這裡展示了過往的繪畫樣本與委託成品</p>
+            </div>
+            
+            <!-- 作品網格 (響應式設計：手機1排、平板2排、電腦3排) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- 樣本 1 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
+                    <!-- 💡 請將 src 裡面的網址替換成你的實際圖片網址 -->
+                    <img src="https://placehold.co/600x800/f1f5f9/3b82f6?text=Sample+1" alt="作品樣本 1" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">半身頭像</h3>
+                        <p class="text-sm text-gray-500 mt-1">細緻的光影與表情刻畫</p>
+                    </div>
+                </div>
+                <!-- 樣本 2 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
+                    <img src="https://placehold.co/600x800/f1f5f9/10b981?text=Sample+2" alt="作品樣本 2" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">全身立繪</h3>
+                        <p class="text-sm text-gray-500 mt-1">適合 Vtuber 或跑團角色設計</p>
+                    </div>
+                </div>
+                <!-- 樣本 3 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
+                    <img src="https://placehold.co/800x600/f1f5f9/8b5cf6?text=Sample+3" alt="作品樣本 3" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg">精緻插畫</h3>
+                        <p class="text-sm text-gray-500 mt-1">包含背景與複雜物件繪製</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 若想加更多作品，只需複製上方任何一個 <div class="bg-white..."> 區塊貼在下方即可 -->
+        </section>
+
+        <!-- 委託表單區塊 (預設隱藏) -->
+        <section id="commission" class="page-section hidden bg-white rounded-2xl shadow-lg p-6 md:p-10 border border-gray-100 animation-fade-in">
             <h2 class="text-2xl font-bold mb-6 border-b pb-2 border-gray-100">填寫委託單</h2>
             
             <form id="commissionForm" class="space-y-6">
@@ -146,6 +194,37 @@
 
     <!-- JavaScript 邏輯 -->
     <script>
+        // 切換頁面的主程式碼
+        function switchPage(pageId) {
+            // 1. 取得所有帶有 'page-section' 類別的區塊，把它們全部隱藏
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // 2. 找到使用者點擊的那個區塊，把它的隱藏取消，讓它顯示出來
+            const targetSection = document.getElementById(pageId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+
+            // 3. 更新導覽列的樣式 (讓選中的頁面文字變為藍色粗體，其餘變灰)
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-600', 'font-medium');
+                link.classList.add('text-gray-600');
+            });
+            
+            const activeNav = document.getElementById('nav-' + pageId);
+            if (activeNav) {
+                activeNav.classList.remove('text-gray-600');
+                activeNav.classList.add('text-blue-600', 'font-medium');
+            }
+            
+            // 4. 切換後自動平滑捲動到畫面最上方
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('commissionForm');
             const submitBtn = document.getElementById('submitBtn');
