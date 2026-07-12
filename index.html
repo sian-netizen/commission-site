@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人繪畫委託</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc; /* Tailwind slate-50 */
+        }
+        
+        /* 載入動畫的 CSS */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6; /* Tailwind blue-500 */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <!-- 導覽列 -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600">我的繪畫空間</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#about" class="hover:text-blue-500 transition-colors">關於我</a></li>
+                    <li><a href="#portfolio" class="hover:text-blue-500 transition-colors">作品集</a></li>
+                    <li><a href="#commission" class="font-medium text-blue-600 hover:text-blue-700 transition-colors">我要委託</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8">
+        
+        <!-- 簡介區塊 (預留空間) -->
+        <section id="about" class="mb-12 text-center">
+            <h2 class="text-3xl font-bold mb-4">歡迎來到我的繪畫委託站</h2>
+            <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                你好！我是一名插畫家，專注於角色設計與場景插畫。如果您喜歡我的風格，歡迎填寫下方的表單進行委託。
+            </p>
+        </section>
+
+        <!-- 委託表單區塊 -->
+        <section id="commission" class="bg-white rounded-2xl shadow-lg p-6 md:p-10 border border-gray-100">
+            <h2 class="text-2xl font-bold mb-6 border-b pb-2 border-gray-100">填寫委託單</h2>
+            
+            <form id="commissionForm" class="space-y-6">
+                <!-- 聯絡資訊 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">稱呼 / 暱稱 <span class="text-red-500">*</span></label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                            placeholder="請輸入您的稱呼">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">電子郵件 <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                            placeholder="example@email.com">
+                    </div>
+                </div>
+
+                <!-- 委託類型 -->
+                <div>
+                    <label for="type" class="block text-sm font-medium text-gray-700 mb-1">委託類型 <span class="text-red-500">*</span></label>
+                    <select id="type" name="type" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow bg-white">
+                        <option value="" disabled selected>請選擇委託類型</option>
+                        <option value="頭像">頭像 (半身)</option>
+                        <option value="立繪">全身立繪</option>
+                        <option value="插畫">精緻插畫 (含背景)</option>
+                        <option value="角色設計">角色設計</option>
+                        <option value="其他">其他 (請在備註說明)</option>
+                    </select>
+                </div>
+
+                <!-- 預算範圍 -->
+                <div>
+                    <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">預算範圍 (TWD) <span class="text-red-500">*</span></label>
+                    <input type="text" id="budget" name="budget" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
+                        placeholder="例如: 1000 - 3000">
+                </div>
+
+                <!-- 詳細需求 -->
+                <div>
+                    <label for="details" class="block text-sm font-medium text-gray-700 mb-1">詳細需求說明 <span class="text-red-500">*</span></label>
+                    <textarea id="details" name="details" rows="5" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow resize-y"
+                        placeholder="請詳細描述您想要的角色外觀、服裝、動作、表情或整體氛圍等... 若有參考圖網址也可貼在此處。"></textarea>
+                </div>
+
+                <!-- 備註 -->
+                <div>
+                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">備註 / 其他想說的話</label>
+                    <textarea id="notes" name="notes" rows="2"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow resize-y"
+                        placeholder="選填..."></textarea>
+                </div>
+
+                <!-- 提交按鈕與狀態訊息 -->
+                <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button type="submit" id="submitBtn"
+                        class="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all focus:ring-4 focus:ring-blue-200 outline-none">
+                        送出委託單
+                    </button>
+                    
+                    <!-- 狀態提示區域 -->
+                    <div id="statusMessage" class="hidden flex items-center text-sm font-medium">
+                        <div id="loadingIndicator" class="loader hidden"></div>
+                        <span id="statusText"></span>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-gray-800 text-gray-400 py-6 text-center mt-auto">
+        <p class="text-sm">© 2026 我的繪畫空間. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript 邏輯 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('commissionForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            const statusText = document.getElementById('statusText');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+
+            // ⚠️ 重要：請將這裡替換為你實際部署 Google Apps Script 後得到的 Web App URL
+            // 注意：請確保你的 GAS 部署權限設定為「所有人 (Anyone)」
+            const GAS_URL = 'https://script.google.com/macros/s/AKfycbzjhFftWmw1bOgkWpfQnkAEqLQQuSJz0dPAAWf-jthHjP0UV-LUDvIuWmmuH2-AaXkCIg/exec'; 
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); // 阻止表單預設的跳轉行為
+
+                // 檢查是否已填寫 GAS_URL
+                if (GAS_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                    showStatus('請先在程式碼中設定 Google Apps Script 的 URL。', 'error');
+                    return;
+                }
+
+                // 收集表單資料
+                const formData = new FormData(form);
+                // 為了使用 x-www-form-urlencoded 格式發送，需要轉換一下
+                const data = new URLSearchParams();
+                for (const pair of formData) {
+                    data.append(pair[0], pair[1]);
+                }
+                
+                // 也可以加入一個時間戳記
+                data.append('timestamp', new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }));
+
+                // 改變 UI 狀態：準備發送
+                setLoadingState(true);
+
+                try {
+                    // 發送請求到 Google Apps Script
+                    const response = await fetch(GAS_URL, {
+                        method: 'POST',
+                        body: data,
+                        // 注意：向 GAS 發送 POST 請求時，mode 通常設為 'no-cors' 以避免跨域報錯
+                        // 但 'no-cors' 模式下，response.ok 會是 false，且無法讀取回傳內容。
+                        // 我們這裡先假設請求成功發送。
+                        mode: 'no-cors', 
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        }
+                    });
+
+                    // 因為使用 no-cors，無法精準得知伺服器處理結果，只能假設網路請求發送成功
+                    // 如果你在 GAS 端處理正確，資料就會進入 Sheet
+                    showStatus('委託已成功送出！我會盡快透過 Email 與您聯絡。', 'success');
+                    form.reset(); // 清空表單
+
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    showStatus('發送失敗，請稍後再試或直接透過 Email 聯絡我。', 'error');
+                } finally {
+                    setLoadingState(false);
+                }
+            });
+
+            // 輔助函式：設定按鈕與載入動畫狀態
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    submitBtn.textContent = '發送中...';
+                    
+                    statusMessage.classList.remove('hidden');
+                    loadingIndicator.classList.remove('hidden');
+                    statusText.textContent = '資料傳送中，請稍候...';
+                    statusText.className = 'text-blue-600';
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    submitBtn.textContent = '送出委託單';
+                    loadingIndicator.classList.add('hidden');
+                }
+            }
+
+            // 輔助函式：顯示成功或錯誤訊息
+            function showStatus(message, type) {
+                statusMessage.classList.remove('hidden');
+                statusText.textContent = message;
+                
+                if (type === 'success') {
+                    statusText.className = 'text-green-600 font-bold';
+                } else {
+                    statusText.className = 'text-red-600 font-bold';
+                }
+
+                // 幾秒後隱藏成功訊息 (可選)
+                if (type === 'success') {
+                    setTimeout(() => {
+                        statusMessage.classList.add('hidden');
+                    }, 8000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
